@@ -1,0 +1,50 @@
+<div>FPL MINI LEAGUE TRACKER</div>
+<form [formGroup]="formData" (ngSubmit)="onSubmit()">
+  <div>new</div>
+  <mat-form-field>
+    <mat-placeholder>Search Team ID</mat-placeholder>
+    <input formControlName="teamID" matInput type="search" />
+    <button mat-button matSuffix mat-stroked-button aria-label="search">
+      <mat-icon>search</mat-icon>
+    </button>
+    <div
+      *ngIf="
+        formData.get('teamID')?.invalid &&
+        formData?.get('teamID')?.errors &&
+        (formData.get('teamID')?.dirty || formData.get('teamID')?.touched)
+      "
+    >
+      <small
+        class="text-danger"
+        *ngIf="formData.get('teamID')?.hasError('pattern'); else checkLength"
+      >
+        Enter a number.
+      </small>
+      <small
+        class="text-danger"
+        *ngIf="formData.get('teamID')?.hasError('required')"
+      >
+        This field is required.
+      </small>
+
+      <small
+        class="text-danger"
+        *ngIf="formData.get('teamID')?.hasError('maxlength')"
+      >
+        The maximum length for this field is
+        {{formData.get('teamID')?.errors?.['maxlength'].requiredLength}}
+        characters.
+      </small>
+      <ng-template #checkLength>
+        <small
+          class="text-danger"
+          *ngIf="formData?.get('teamID')?.hasError('minlength')"
+        >
+          The minimum length for this field is
+          {{formData?.get('teamID')?.errors?.['minlength']?.requiredLength}}
+          characters.
+        </small>
+      </ng-template>
+    </div>
+  </mat-form-field>
+</form>
