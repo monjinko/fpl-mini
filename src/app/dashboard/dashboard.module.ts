@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { KnobModule } from 'primeng/knob';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
-import { DashboardModule } from './dashboard/dashboard.module';
+import { DashboardComponent } from './container/dashboard.component';
+import { MaterialModule } from 'src/app/material.module';
+import { DashboardViewComponent } from './views/dashboard-view.component';
+import { DashboardService } from './services/dashboard.service';
+import { ManagerModel } from './model/manager.model';
+import { BarChartRaceModule } from '../bar-chart-race/bar-chart-race.module';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [DashboardComponent, DashboardViewComponent],
   imports: [
-    DashboardModule,
-    AppRoutingModule,
     BrowserAnimationsModule,
     MdbCheckboxModule,
     BrowserModule,
@@ -27,8 +27,9 @@ import { DashboardModule } from './dashboard/dashboard.module';
     MatNativeDateModule,
     MaterialModule,
     ReactiveFormsModule,
+    BarChartRaceModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [DashboardService],
+  exports: [DashboardComponent],
 })
-export class AppModule {}
+export class DashboardModule {}
