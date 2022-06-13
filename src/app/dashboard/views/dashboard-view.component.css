@@ -1,0 +1,29 @@
+mat-toolbar {
+  min-height: 5em;
+  padding: 0.5em 1em 0 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+mat-form-field {
+  display: inline-block;
+  max-width: none;
+  word-wrap: normal;
+  white-space: normal;
+  overflow: auto;
+}
+
+.text-danger {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+dashboard-view {
+  width: 100%;
+}
+
+mat-spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
