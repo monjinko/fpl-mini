@@ -16,13 +16,12 @@ export class ManagerModel {
 
   ManagerGraphColor: string;
 
-  constructor(manager: any, color: string) {
+  constructor(manager: any) {
     this.MID = manager.entry;
     this.Name = manager.entry_name;
     this.UserName = manager.player_name;
     this.LeagueRank = manager.last_rank;
     this.Chips = new Array<ChipsModel>();
     this.GWData = new Array<GameWeekDataModel>();
-    this.ManagerGraphColor = color;
   }
 }

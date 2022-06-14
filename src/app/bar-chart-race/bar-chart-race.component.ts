@@ -16,14 +16,23 @@ export class BarChartRaceComponent {
   @Input() set data(managerData: Array<ManagerModel>) {
     if (managerData.length > 0) {
       this._data = managerData;
+      let maxLength;
+      if (managerData.length > 15) {
+        maxLength = 20;
+      } else {
+        maxLength = managerData.length;
+      }
+      this.setUserRange(0, maxLength - 1);
       this.createBarChart();
     }
   }
   mySubscription: Subscription;
 
+  splicedData: Array<ManagerModel>;
+
   chart: any;
 
-  index: number = 1;
+  index: number = 0;
 
   formData = new FormGroup({
     gwSelected: new FormControl('', []),
@@ -35,13 +44,26 @@ export class BarChartRaceComponent {
     return this._data;
   }
 
+  private defaultColorArray = [
+    '#31278f',
+    '#76278f',
+    '#278f4a',
+    '#8f2727',
+    '#8f2754',
+    '#36151f',
+    '#171536',
+    '#193615',
+    '#750162',
+    '#283a45',
+  ];
+
   tID: number | undefined;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  autoUpdate(event: number): void {
+  updateGW(event: number): void {
     let selectedGW = this.filterSelectedGW(event);
     let labels = selectedGW.map((gw) => gw.Name);
     let data = selectedGW.map((gw) => gw.TotalPoints);
@@ -49,15 +71,29 @@ export class BarChartRaceComponent {
     this.addData(this.chart, labels, data, color, event);
   }
 
-  onSubmit() {
-    this.index = 0;
-    this.mySubscription = interval(800).subscribe((x) => {
-      this.autoUpdate(this.index);
+  runTimelapse() {
+    this.mySubscription = interval(900).subscribe((x) => {
+      this.updateGW(this.index);
       if (this.index > 38) {
-        this.autoUpdate(38);
+        this.updateGW(38);
+        this.index = 0;
         this.mySubscription.unsubscribe();
       }
       this.index++;
+    });
+  }
+
+  stopTimelapse() {
+    this.mySubscription.unsubscribe();
+  }
+  onSubmit() {
+    this.updateGW(parseInt(this.formData.get('gwSelected')?.value));
+  }
+
+  setUserRange(firstIndex: number, secondIndex: number) {
+    this.splicedData = this._data.splice(firstIndex, secondIndex);
+    this.splicedData.forEach((manager, index) => {
+      manager.ManagerGraphColor = this.defaultColorArray[index];
     });
   }
 
@@ -84,8 +120,9 @@ export class BarChartRaceComponent {
           data: data,
           fill: false,
           backgroundColor: color,
-          borderRadius: 20,
-          borderWidth: 1,
+          borderColor: 'white',
+          borderRadius: 10,
+          borderWidth: 2,
           datalabels: {
             color: 'white',
           },
@@ -99,24 +136,35 @@ export class BarChartRaceComponent {
       data: data2,
       options: {
         indexAxis: 'y',
+        layout: {
+          padding: {
+            left: 2,
+            right: 20,
+          },
+        },
+        responsive: true,
         plugins: {
           legend: {
             display: false,
           },
           subtitle: {
             display: true,
-            text: 'something',
+            text: 'Game Week ' + 1,
             color: 'white',
             position: 'bottom',
             font: {
+              family: 'Bebas Neue',
               size: 30,
             },
           },
         },
         scales: {
+          y: {
+            ticks: { color: 'white' },
+          },
           x: {
             min: 0,
-            max: 2700,
+            max: 2750,
           },
         },
       },
@@ -141,6 +189,7 @@ export class BarChartRaceComponent {
         color: 'white',
         position: 'bottom',
         font: {
+          family: 'Bebas Neue',
           size: 30,
         },
       },
@@ -152,7 +201,7 @@ export class BarChartRaceComponent {
     let gwArray = new Array<GameWeekGraphModel>();
     new Array<GameWeekGraphModel>();
 
-    this._data.forEach((element) => {
+    this.splicedData.forEach((element) => {
       const gwPoints = element.GWData.filter((obj) => obj.Event == gw).map(
         (gw) => gw.GWPoints
       );

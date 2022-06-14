@@ -1,14 +1,31 @@
-<canvas id="canvas"></canvas>
-<form [formGroup]="formData" (ngSubmit)="onSubmit()">
-  <mat-form-field>
-    <input
-      [style.background-color]="'purple'"
-      formControlName="gwSelected"
-      matInput
-      type="search"
-    />
-    <button mat-button matSuffix mat-stroked-button aria-label="search">
+<form class="canvas-controls" [formGroup]="formData" (ngSubmit)="onSubmit()">
+  <div class="search-bar">
+    <label>Search Game Week:</label>
+
+    <mat-form-field>
+      <input
+        [style.background-color]="'gray'"
+        formControlName="gwSelected"
+        matInput
+        type="search"
+      />
+    </mat-form-field>
+    <button mat-button mat-stroked-button>
       <mat-icon>search</mat-icon>
     </button>
-  </mat-form-field>
+  </div>
+  <div class="timelapse">
+    <label>Timelapse</label>
+    <div class="timelapse-buttons">
+      <button type="button" mat-icon (click)="runTimelapse()" mat-raised-button>
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+      <button type="button" (click)="stopTimelapse()" mat-raised-button>
+        <mat-icon>pause</mat-icon>
+      </button>
+    </div>
+  </div>
 </form>
+<div class="canvas-wrapper">
+  <canvas id="canvas"></canvas>
+</div>
