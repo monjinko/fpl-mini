@@ -1,5 +1,47 @@
+.canvas-wrapper {
+  width: 85% !important;
+  height: 100%;
+}
 canvas {
-  max-height: 40em;
-  width: auto;
-  padding: 2em 5em 2em 5em;
+  background-color: black;
+  max-height: 35em;
+  padding: 2em 6em 2em 6em;
+}
+.canvas-controls {
+  display: flex;
+  vertical-align: top;
+  justify-content: space-between;
+}
+.search-bar label {
+  font-size: 1.7em;
+  margin-right: 1em;
+  margin-left: 1em;
+}
+
+.search-bar input {
+  height: 1.5em;
+}
+
+.search-bar button {
+  margin-left: 0.5em;
+  margin-bottom: 1.3em;
+}
+
+.timelapse {
+  display: flex;
+  flex-direction: row;
+  margin: 1em;
+}
+.timelapse label {
+  font-size: 1.7em;
+  margin-right: 1em;
+  margin-left: 2em;
+}
+
+.timelapse-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: stretch;
+  column-gap: 0.875rem;
 }

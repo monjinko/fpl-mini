@@ -51,7 +51,7 @@ export class DashboardService implements OnDestroy {
           const mngrArray = new Array<ManagerModel>();
 
           for (const player of data.standings.results) {
-            let manager = new ManagerModel(player, this.random_rgba());
+            let manager = new ManagerModel(player);
             mngrArray.push(manager);
 
             let allGWurl = `${this.gwAPIURL}${player.entry}/history/`;
@@ -91,21 +91,5 @@ export class DashboardService implements OnDestroy {
           }
         }
       );
-  }
-  random_rgba() {
-    var o = Math.round,
-      r = Math.random,
-      s = 255;
-    return (
-      'rgba(' +
-      o(r() * s) +
-      ',' +
-      o(r() * s) +
-      ',' +
-      o(r() * s) +
-      ',' +
-      r().toFixed(1) +
-      ')'
-    );
   }
 }
