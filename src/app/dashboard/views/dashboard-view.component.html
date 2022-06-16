@@ -1,43 +1,49 @@
-<mat-toolbar>
-  <div>FPL MINI LEAGUE TRACKER</div>
-  <form [formGroup]="formData" (ngSubmit)="onSubmit()">
-    <mat-form-field>
-      <input
-        [style.background-color]="'white'"
-        formControlName="teamID"
-        matInput
-        type="search"
-      />
-      <button mat-button matSuffix mat-stroked-button aria-label="search">
-        <mat-icon>search</mat-icon>
-      </button>
-      <div
-        *ngIf="
-          formData.get('teamID')?.invalid &&
-          formData?.get('teamID')?.errors &&
-          (formData.get('teamID')?.dirty || formData.get('teamID')?.touched)
-        "
-      >
-        <small
-          class="text-danger"
-          *ngIf="formData.get('teamID')?.hasError('pattern')"
+<div class="dashboard-wrapper">
+  <mat-toolbar>
+    <div class="header-title">
+      <label>GraphPL</label>
+      <label class="subtext">Visualize Your FPL Mini League Data</label>
+    </div>
+    <form [formGroup]="formData" (ngSubmit)="onSubmit()">
+      <label>League ID: </label>
+      <mat-form-field style="margin-bottom: -1.25em; margin-top: -1.25em">
+        <input formControlName="teamID" matInput type="search" />
+        <button mat-button matSuffix mat-stroked-button aria-label="search">
+          <mat-icon>search</mat-icon>
+        </button>
+        <div
+          *ngIf="
+            formData.get('teamID')?.invalid &&
+            formData?.get('teamID')?.errors &&
+            (formData.get('teamID')?.dirty || formData.get('teamID')?.touched)
+          "
         >
-          Enter a number.
-        </small>
-        <small
-          class="text-danger"
-          *ngIf="formData.get('teamID')?.hasError('required')"
-        >
-          This field is required.
-        </small>
+          <small
+            class="text-danger"
+            *ngIf="formData.get('teamID')?.hasError('pattern')"
+          >
+            Enter a number.
+          </small>
+          <small
+            class="text-danger"
+            *ngIf="formData.get('teamID')?.hasError('required')"
+          >
+            This field is required.
+          </small>
+        </div>
+      </mat-form-field>
+    </form>
+  </mat-toolbar>
+  <div class="dashboard-body">
+    <div *ngIf="isLoading">
+      <mat-spinner [color]="'accent'" [strokeWidth]="4"></mat-spinner>
+    </div>
+    <bar-chart-race *ngIf="data.length > 0; else intro" [data]="data">
+    </bar-chart-race>
+    <ng-template #intro>
+      <div class="dashboard-body-intro" *ngIf="!isLoading">
+        <label class="intro">Please Enter the League ID</label>
       </div>
-    </mat-form-field>
-  </form>
-</mat-toolbar>
-
-<div *ngIf="isLoading">
-  <mat-spinner [color]="'accent'" [strokeWidth]="4"></mat-spinner>
-</div>
-<div *ngIf="data.length > 0">
-  <bar-chart-race [data]="data"> </bar-chart-race>
+    </ng-template>
+  </div>
 </div>

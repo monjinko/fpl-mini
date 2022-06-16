@@ -1,19 +1,52 @@
+.dashboard-wrapper {
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+}
+
+.dashboard-body {
+  flex: 1 1 auto;
+  height: auto;
+}
+
 mat-toolbar {
-  min-height: 5em;
-  padding: 0.5em 1em 0 1em;
+  flex: 0 1 auto;
+  background: rgb(2, 0, 36);
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(53, 12, 101, 1) 51%,
+    rgba(15, 66, 77, 1) 100%
+  );
+  min-height: 6em;
   display: flex;
   justify-content: space-between;
 }
+mat-toolbar .header-title {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.9em;
+  margin-left: 1em;
+  color: white;
 
-mat-form-field {
-  display: inline-block;
-  max-width: none;
-  word-wrap: normal;
-  white-space: normal;
-  overflow: auto;
+  font-family: "Quicksand", sans-serif;
+}
+.mat-form-field-wrapper {
+  margin-bottom: -1.25em;
+  margin-top: -1.25em;
+}
+.subtext {
+  margin-top: 0.6em;
+  font-size: 0.4em;
+  color: white;
+  font-family: "Nunito Sans", sans-serif;
 }
 
 .text-danger {
+  color: white;
+
   display: flex;
   flex-wrap: wrap;
 }
@@ -26,4 +59,41 @@ mat-spinner {
   position: fixed;
   top: 50%;
   left: 50%;
+}
+
+form {
+  margin-right: 1em;
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: flex-end;
+  font-family: "Quicksand", sans-serif;
+}
+
+form label {
+  font-size: 0.7em;
+}
+
+mat-form-field input {
+  border-left: 1em;
+  border-color: white;
+  padding-top: 0.3em;
+  padding-bottom: 0.1em;
+  font-size: 0.8em;
+}
+
+small {
+  font-size: 0.7em;
+}
+
+.dashboard-body-intro {
+  opacity: 70%;
+  font-family: "Quicksand", sans-serif;
+  font-size: 1.5em;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

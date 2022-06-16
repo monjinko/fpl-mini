@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Kanit:wght@100&display=swap');
-
-* {
-  font-family: 'Bebas Neue', cursive;
-}
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap");
 
 body {
   margin: 0;
@@ -14,4 +12,17 @@ body {
   body {
     height: 100%;
   }
+  
+  app-root {
+    display: block;
+    height: 100%;
+  }
+
+  .mat-slider-thumb {
+    background-color: #e35930 !important;
+  }
+  .mat-slider-track-fill {
+    background-color: #d1d1d1 !important;
+  }
+  
   

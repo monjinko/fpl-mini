@@ -6,6 +6,7 @@ import { interval, Subscription } from 'rxjs';
 import { GameWeekGraphModel } from '../dashboard/model/gwgraph.model';
 import { ManagerModel } from '../dashboard/model/manager.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'bar-chart-race',
@@ -34,6 +35,14 @@ export class BarChartRaceComponent {
 
   index: number = 0;
 
+  play_color: string;
+
+  pause_color: string;
+
+  play_disable: boolean;
+
+  pause_disable: boolean;
+
   formData = new FormGroup({
     gwSelected: new FormControl('', []),
   });
@@ -59,6 +68,8 @@ export class BarChartRaceComponent {
 
   tID: number | undefined;
 
+  tickValue: number;
+
   constructor() {}
 
   ngOnInit(): void {}
@@ -72,9 +83,15 @@ export class BarChartRaceComponent {
   }
 
   runTimelapse() {
+    this.play_color = '60%';
+    this.play_disable = true;
+    this.pause_disable = false;
+    this.pause_color = '100%';
     this.mySubscription = interval(900).subscribe((x) => {
       this.updateGW(this.index);
+      this.tickValue = this.index;
       if (this.index > 38) {
+        this.play_color = '100%';
         this.updateGW(38);
         this.index = 0;
         this.mySubscription.unsubscribe();
@@ -85,6 +102,10 @@ export class BarChartRaceComponent {
 
   stopTimelapse() {
     this.mySubscription.unsubscribe();
+    this.pause_disable = true;
+    this.pause_color = '60%';
+    this.play_color = '100%';
+    this.play_disable = false;
   }
   onSubmit() {
     this.updateGW(parseInt(this.formData.get('gwSelected')?.value));
@@ -138,11 +159,14 @@ export class BarChartRaceComponent {
         indexAxis: 'y',
         layout: {
           padding: {
-            left: 2,
-            right: 20,
+            top: 10,
+            right: 30,
+            left: 40,
+            bottom: 10,
           },
         },
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             display: false,
@@ -219,5 +243,11 @@ export class BarChartRaceComponent {
 
     gwArray.sort((a, b) => b.TotalPoints - a.TotalPoints);
     return gwArray;
+  }
+
+  onInputChange(event: any) {
+    this.updateGW(event.value);
+    this.tickValue = event.value;
+    this.index = event.value;
   }
 }
