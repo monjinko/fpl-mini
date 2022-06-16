@@ -1,31 +1,57 @@
-<form class="canvas-controls" [formGroup]="formData" (ngSubmit)="onSubmit()">
-  <div class="search-bar">
-    <label>Search Game Week:</label>
-
-    <mat-form-field>
-      <input
-        [style.background-color]="'gray'"
-        formControlName="gwSelected"
-        matInput
-        type="search"
-      />
-    </mat-form-field>
-    <button mat-button mat-stroked-button>
-      <mat-icon>search</mat-icon>
-    </button>
-  </div>
-  <div class="timelapse">
-    <label>Timelapse</label>
-    <div class="timelapse-buttons">
-      <button type="button" mat-icon (click)="runTimelapse()" mat-raised-button>
-        <mat-icon>play_arrow</mat-icon>
-      </button>
-      <button type="button" (click)="stopTimelapse()" mat-raised-button>
-        <mat-icon>pause</mat-icon>
-      </button>
+<div class="content-wrapper">
+  <div class="canvas-wrapper">
+    <form
+      class="canvas-controls"
+      [formGroup]="formData"
+      (ngSubmit)="onSubmit()"
+    >
+      <div class="search-bar">
+        <label>Search Game Week:</label>
+        <mat-form-field>
+          <input
+            [style.background-color]="'white'"
+            formControlName="gwSelected"
+            matInput
+            type="search"
+          />
+        </mat-form-field>
+        <button mat-button mat-stroked-button>
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
+      <div class="timelapse">
+        <label>Timelapse</label>
+        <div class="timelapse-controls">
+          <mat-icon
+            [style.opacity]="play_color"
+            [ngClass]="{ disable: play_disable }"
+            type="button"
+            (click)="runTimelapse()"
+            >play_arrow</mat-icon
+          >
+          <mat-icon
+            class="mat-slide-1"
+            [style.opacity]="pause_color"
+            [ngClass]="{ disable: pause_disable }"
+            type="button"
+            (click)="stopTimelapse()"
+            >pause</mat-icon
+          >
+          <mat-slider
+            thumbLabel
+            (input)="onInputChange($event)"
+            [value]="tickValue"
+            step="1"
+            min="0"
+            max="38"
+            aria-label="units"
+          ></mat-slider>
+        </div>
+      </div>
+    </form>
+    <div class="bar-chart-wrapper">
+      <canvas id="canvas"></canvas>
     </div>
   </div>
-</form>
-<div class="canvas-wrapper">
-  <canvas id="canvas"></canvas>
+  <div class="gw-highlight"></div>
 </div>
