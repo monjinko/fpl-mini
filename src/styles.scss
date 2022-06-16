@@ -21,6 +21,9 @@ body {
   .mat-slider-thumb {
     background-color: #e35930 !important;
   }
+  .mat-slider.mat-accent .mat-slider-thumb-label{
+    background-color: #e35930 !important;
+  }
   .mat-slider-track-fill {
     background-color: #d1d1d1 !important;
   }

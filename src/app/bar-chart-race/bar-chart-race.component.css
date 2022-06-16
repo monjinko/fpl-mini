@@ -27,6 +27,29 @@
   height: 100%;
 }
 
+::ng-deep .mat-form-field-label {
+  color: white !important;
+  font-size: 0.8em;
+}
+
+::ng-deep .mat-focused .mat-form-field-underline .mat-form-field-ripple {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-underline {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-underline .mat-form-field-ripple {
+  background-color: white;
+}
+
+::ng-deep .mat-form-field-empty.mat-form-field-label {
+  color: white;
+}
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before {
+  background-color: white;
+}
 label {
   color: white;
   font-family: "Nunito Sans", sans-serif;
@@ -34,38 +57,60 @@ label {
 canvas {
   width: 500px;
   background-color: black;
+
+  box-shadow: inset 0 0 10px #000000;
   max-height: 35em;
 }
 .canvas-controls {
+  flex-shrink: initial;
+  background-color: #403b6c;
   display: flex;
   vertical-align: top;
   justify-content: space-between;
 }
-.search-bar label {
-  font-size: 1.7em;
+.rank-range {
+  display: flex;
+  height: 100%;
+  margin-left: 1em;
+  flex-wrap: wrap;
+}
+
+.rank-range button {
+  margin-left: 1em;
+  margin-top: 0.3em;
+  align-self: center;
+}
+.filter-rank {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  vertical-align: top;
+}
+.filter-rank label {
+  font-family: "Quicksand", sans-serif;
+  color: white;
+  font-size: 1em;
+  margin-top: 0.6em;
   margin-right: 1em;
   margin-left: 1em;
 }
 
-.search-bar input {
+.filter-rank input {
   height: 1.5em;
-}
-
-.search-bar button {
-  margin-left: 0.5em;
-  margin-bottom: 1.3em;
 }
 
 .timelapse {
   display: flex;
   flex-direction: column;
   text-align: left;
-  margin: 1em;
+  margin-top: 1em;
 }
 .timelapse label {
   font-size: 1.1em;
 }
 .timelapse-controls {
+  margin-right: 1em;
   color: white;
   display: flex;
   align-items: center;
