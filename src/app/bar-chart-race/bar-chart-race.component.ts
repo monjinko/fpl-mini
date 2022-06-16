@@ -83,6 +83,9 @@ export class BarChartRaceComponent {
   }
 
   runTimelapse() {
+    if (this.index == 38) {
+      this.index = 0;
+    }
     this.play_color = '60%';
     this.play_disable = true;
     this.pause_disable = false;
@@ -90,8 +93,9 @@ export class BarChartRaceComponent {
     this.mySubscription = interval(900).subscribe((x) => {
       this.updateGW(this.index);
       this.tickValue = this.index;
-      if (this.index > 38) {
+      if (this.index == 38) {
         this.play_color = '100%';
+        this.play_disable = false;
         this.updateGW(38);
         this.index = 0;
         this.mySubscription.unsubscribe();
