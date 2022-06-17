@@ -63,7 +63,7 @@ canvas {
 }
 .canvas-controls {
   flex-shrink: initial;
-  background-color: #403b6c;
+  background-color: black;
   display: flex;
   vertical-align: top;
   justify-content: space-between;
@@ -126,4 +126,9 @@ canvas {
 
 mat-slider {
   margin-left: 0.9em;
+}
+table {
+  width: 100%;
+  padding: 0.5em;
+  background-color: transparent;
 }

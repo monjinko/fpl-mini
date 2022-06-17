@@ -1,10 +1,6 @@
 <div class="content-wrapper">
   <div class="canvas-wrapper">
-    <form
-      class="canvas-controls"
-      [formGroup]="formData"
-      (ngSubmit)="onSubmit()"
-    >
+    <form class="canvas-controls" [formGroup]="formData">
       <div class="filter-rank">
         <label>Filter rank range:</label>
         <div class="rank-range">
@@ -14,14 +10,25 @@
             [style.margin-right]="'0.5em'"
           >
             <mat-label>From Rank: </mat-label>
-            <input [style.color]="'white'" matInput #input />
+            <input
+              [style.color]="'white'"
+              matInput
+              #input
+              formControlName="fromRank"
+            />
           </mat-form-field>
 
           <mat-form-field appearance="fill" [style.width.px]="90">
             <mat-label>To Rank: </mat-label>
-            <input [style.color]="'white'" matInput #input />
+            <input
+              [style.color]="'white'"
+              matInput
+              #input
+              formControlName="toRank"
+            />
           </mat-form-field>
           <button
+            (click)="updateRankRange()"
             mat-raised-button
             color="primary"
             type="button"
@@ -65,5 +72,74 @@
       <canvas id="canvas"></canvas>
     </div>
   </div>
-  <div class="gw-highlight"></div>
+  <div class="gw-highlight">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="Name">
+        <th
+          mat-header-cell
+          [style.color]="'white'"
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          *matHeaderCellDef
+        >
+          Name
+        </th>
+        <td
+          mat-cell
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          [style.font-size]="'0.7em'"
+          [style.color]="'white'"
+          *matCellDef="let element"
+        >
+          {{ element.Name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="GWPoints">
+        <th
+          mat-header-cell
+          [style.color]="'white'"
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          *matHeaderCellDef
+        >
+          GWPoints
+        </th>
+        <td
+          mat-cell
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          [style.font-size]="'0.7em'"
+          [style.color]="'white'"
+          *matCellDef="let element"
+        >
+          {{ element.GWPoints }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ChipUsed">
+        <th
+          mat-header-cell
+          [style.color]="'white'"
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          *matHeaderCellDef
+        >
+          Chip Used
+        </th>
+        <td
+          mat-cell
+          [ngStyle]="{ 'border-bottom': '1px solid white' }"
+          [style.font-size]="'0.7em'"
+          [style.color]="'white'"
+          *matCellDef="let element"
+        >
+          {{ element.ChipUsed }}
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        [ngStyle]="{ border: 'none' }"
+        *matRowDef="let row; columns: displayedColumns"
+      ></tr>
+    </table>
+  </div>
 </div>
