@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import Chart, { ChartConfiguration, ChartType } from 'chart.js/auto';
 import { SubTitle } from 'chart.js';
-import { first, interval, Subscription } from 'rxjs';
+import { distinctUntilChanged, first, interval, Subscription } from 'rxjs';
 import { GameWeekGraphModel } from '../dashboard/model/gwgraph.model';
 import { ManagerModel } from '../dashboard/model/manager.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -37,8 +37,8 @@ export class BarChartRaceComponent {
     if (managerData.length > 0) {
       this._data = managerData;
       let maxLength;
-      if (this._data.length > 15) {
-        maxLength = 20;
+      if (this._data.length > 10) {
+        maxLength = 10;
       } else {
         maxLength = this._data.length;
       }
@@ -66,9 +66,19 @@ export class BarChartRaceComponent {
 
   pause_disable: boolean;
 
+  numberRegEx = /\-?\d*\.?\d{1,2}/;
+
   formData = new FormGroup({
-    fromRank: new FormControl('', []),
-    toRank: new FormControl('', []),
+    fromRank: new FormControl('', [
+      Validators.required,
+      Validators.min(0),
+      Validators.pattern(this.numberRegEx),
+    ]),
+    toRank: new FormControl('', [
+      Validators.required,
+      Validators.max(10),
+      Validators.pattern(this.numberRegEx),
+    ]),
   });
 
   private _data: Array<ManagerModel>;
@@ -124,7 +134,7 @@ export class BarChartRaceComponent {
   }
 
   setRankRange(firstIndex: number, secondIndex: number) {
-    this.splicedData = [...this._data].splice(firstIndex, secondIndex);
+    this.splicedData = [...this._data].slice(firstIndex, secondIndex);
     this.splicedData.forEach((manager, index) => {
       manager.ManagerGraphColor = defaultColorArray[index];
     });
@@ -133,6 +143,12 @@ export class BarChartRaceComponent {
   updateRankRange() {
     let firstIndex = parseInt(this.formData.get('fromRank')?.value);
     let secondIndex = parseInt(this.formData.get('toRank')?.value);
+
+    if (firstIndex > secondIndex) {
+      this.formData.valid == false;
+      this.formData.updateValueAndValidity();
+    }
+
     this.setRankRange(firstIndex - 1, secondIndex);
     this.updateGW(this.event);
   }

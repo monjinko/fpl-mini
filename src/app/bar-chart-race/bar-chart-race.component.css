@@ -132,3 +132,7 @@ table {
   padding: 0.5em;
   background-color: transparent;
 }
+
+.mat-button-disabled.mat-button-disabled {
+  background-color: gray;
+}
