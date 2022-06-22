@@ -43,7 +43,13 @@ export class BarChartRaceComponent {
         maxLength = this._data.length;
       }
       this.setRankRange(0, maxLength);
-      this.createBarChart();
+      if (this.chart != undefined) {
+        this.updateGW(1);
+        this.tickValue = 1;
+        this.event = 1;
+      } else {
+        this.createBarChart();
+      }
     }
   }
   mySubscription: Subscription;
@@ -154,7 +160,7 @@ export class BarChartRaceComponent {
   }
 
   createBarChart() {
-    let selectedGW = this.createSelectedGWDataArray(0);
+    let selectedGW = this.createSelectedGWDataArray(1);
 
     let labels = selectedGW.map((gw) => gw.Name);
     let data = selectedGW.map((gw) => gw.TotalPoints);
@@ -222,7 +228,6 @@ export class BarChartRaceComponent {
         },
       },
     };
-
     this.chart = new Chart('canvas', chartConfig);
   }
 
