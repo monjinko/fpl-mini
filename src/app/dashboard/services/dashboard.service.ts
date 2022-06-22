@@ -20,10 +20,13 @@ export class DashboardService implements OnDestroy {
 
   data: Observable<Array<ManagerModel>>;
 
-  private leagueAPIURL =
-    'https://fantasy.premierleague.com/api/leagues-classic/';
+  private proxyURL = 'https://cors-anywhere.herokuapp.com/';
 
-  private gwAPIURL = 'https://fantasy.premierleague.com/api/entry/';
+  private leagueAPIURL =
+    'https://q93nc3tsl8.execute-api.us-east-2.amazonaws.com/ProdInit/league/';
+
+  private gwAPIURL =
+    'https://q93nc3tsl8.execute-api.us-east-2.amazonaws.com/ProdInit/managers/';
 
   private _isLoading = new BehaviorSubject<boolean>(false);
 
@@ -41,7 +44,7 @@ export class DashboardService implements OnDestroy {
   }
 
   getLeagueData(id: number) {
-    const url = `${this.leagueAPIURL}${id}/standings`;
+    const url = `${this.leagueAPIURL}${id}`;
     const gwEndpoints = new Array<Observable<any>>();
     this._isLoading.next(true);
     this.http
@@ -50,13 +53,17 @@ export class DashboardService implements OnDestroy {
         switchMap((data: any): Observable<Array<ManagerModel>> => {
           const mngrArray = new Array<ManagerModel>();
 
-          for (const player of data.standings.results) {
+          let index = 0;
+          while (index < 10) {
+            const player = data.standings.results[index];
             let manager = new ManagerModel(player);
             mngrArray.push(manager);
 
-            let allGWurl = `${this.gwAPIURL}${player.entry}/history/`;
+            let allGWurl = `${this.gwAPIURL}${player.entry}`;
             gwEndpoints.push(this.http?.get(allGWurl));
+            index++;
           }
+
           this.leagueManagers = mngrArray;
 
           return forkJoin(gwEndpoints);
