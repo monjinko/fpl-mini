@@ -1,0 +1,6 @@
+{
+    "/api": {
+    "target": "https://fantasy.premierleague.com/api",
+    "secure": false
+    }
+}

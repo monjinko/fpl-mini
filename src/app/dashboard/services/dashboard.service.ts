@@ -18,9 +18,9 @@ export class DashboardService implements OnDestroy {
 
   isLoading: Observable<boolean>;
 
-  data: Observable<Array<ManagerModel>>;
+  maxPoints: Observable<number>;
 
-  private proxyURL = 'https://cors-anywhere.herokuapp.com/';
+  data: Observable<Array<ManagerModel>>;
 
   private leagueAPIURL =
     'https://q93nc3tsl8.execute-api.us-east-2.amazonaws.com/ProdInit/league/';

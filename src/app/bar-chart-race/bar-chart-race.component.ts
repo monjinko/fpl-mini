@@ -72,6 +72,8 @@ export class BarChartRaceComponent {
 
   pause_disable: boolean;
 
+  maxPoints: number;
+
   numberRegEx = /\-?\d*\.?\d{1,2}/;
 
   formData = new FormGroup({
@@ -144,6 +146,12 @@ export class BarChartRaceComponent {
     this.splicedData.forEach((manager, index) => {
       manager.ManagerGraphColor = defaultColorArray[index];
     });
+
+    this.splicedData.sort((a, b) => a.LeagueRank - b.LeagueRank);
+
+    this.maxPoints =
+      this.splicedData[0].GWData[this.splicedData[0].GWData.length - 1]
+        .TotalPoints + 50;
   }
 
   updateRankRange() {
@@ -223,7 +231,7 @@ export class BarChartRaceComponent {
           },
           x: {
             min: 0,
-            max: 2750,
+            max: this.maxPoints,
           },
         },
       },
@@ -250,6 +258,15 @@ export class BarChartRaceComponent {
           family: 'Bebas Neue',
           size: 30,
         },
+      },
+    };
+    chart.options.scales = {
+      y: {
+        ticks: { color: 'white' },
+      },
+      x: {
+        min: 0,
+        max: this.maxPoints,
       },
     };
     chart.update();
