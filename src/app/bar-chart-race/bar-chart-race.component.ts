@@ -1,5 +1,12 @@
 import { Component, Input } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import Chart, { ChartConfiguration, ChartType } from 'chart.js/auto';
 import { SubTitle } from 'chart.js';
 import { distinctUntilChanged, first, interval, Subscription } from 'rxjs';
@@ -7,6 +14,7 @@ import { GameWeekGraphModel } from '../dashboard/model/gwgraph.model';
 import { ManagerModel } from '../dashboard/model/manager.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ThisReceiver } from '@angular/compiler';
+import { rankRangeValidator } from '../shared/customvalidator.directive';
 
 export interface PeriodicElement {
   name: string;
@@ -74,20 +82,27 @@ export class BarChartRaceComponent {
 
   maxPoints: number;
 
+  currentRankRange: number = 10;
+
   numberRegEx = /\-?\d*\.?\d{1,2}/;
 
-  formData = new FormGroup({
-    fromRank: new FormControl('', [
-      Validators.required,
-      Validators.min(0),
-      Validators.pattern(this.numberRegEx),
-    ]),
-    toRank: new FormControl('', [
-      Validators.required,
-      Validators.max(10),
-      Validators.pattern(this.numberRegEx),
-    ]),
-  });
+  formData = new FormGroup(
+    {
+      fromRank: new FormControl('', [
+        Validators.required,
+        Validators.min(1),
+        Validators.pattern(this.numberRegEx),
+      ]),
+      toRank: new FormControl('', [
+        Validators.required,
+        Validators.max(10),
+        Validators.pattern(this.numberRegEx),
+      ]),
+    },
+    {
+      validators: rankRangeValidator,
+    }
+  );
 
   private _data: Array<ManagerModel>;
 
@@ -146,6 +161,10 @@ export class BarChartRaceComponent {
     this.splicedData.forEach((manager, index) => {
       manager.ManagerGraphColor = defaultColorArray[index];
     });
+
+    if (secondIndex > this.currentRankRange) {
+      this.currentRankRange = secondIndex;
+    }
 
     this.splicedData.sort((a, b) => a.LeagueRank - b.LeagueRank);
 

@@ -37,6 +37,27 @@
           >
             Filter
           </button>
+          <div *ngIf="formData.errors?.['rankError'] && formData.dirty">
+            <small class="text-danger" *ngIf="formData.errors?.['rankError']">
+              First rank greater than second
+            </small>
+          </div>
+          <div *ngIf="formData.get('fromRank')?.hasError && formData.dirty">
+            <small
+              class="text-danger"
+              *ngIf="formData.get('fromRank')?.hasError('min')"
+            >
+              Rank less than 1
+            </small>
+          </div>
+          <div *ngIf="formData.get('toRank')?.hasError && formData.dirty">
+            <small
+              class="text-danger"
+              *ngIf="formData.get('toRank')?.hasError('max')"
+            >
+              Rank greater than 10
+            </small>
+          </div>
         </div>
       </div>
       <div class="timelapse">

@@ -43,7 +43,7 @@ export class DashboardService implements OnDestroy {
     this.unsubscribe.next();
   }
 
-  getLeagueData(id: number) {
+  getLeagueData(id: number, rankRange: number) {
     const url = `${this.leagueAPIURL}${id}`;
     const gwEndpoints = new Array<Observable<any>>();
     this._isLoading.next(true);
@@ -54,7 +54,7 @@ export class DashboardService implements OnDestroy {
           const mngrArray = new Array<ManagerModel>();
 
           let index = 0;
-          while (index < 10) {
+          while (index < rankRange) {
             const player = data.standings.results[index];
             let manager = new ManagerModel(player);
             mngrArray.push(manager);

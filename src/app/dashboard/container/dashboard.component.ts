@@ -20,6 +20,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {}
 
   onLeagueEntered(data: any) {
-    this.dashboardService.getLeagueData(data);
+    this.dashboardService.getLeagueData(data, 10);
   }
 }
