@@ -25,13 +25,13 @@
 
 .gameweek {
   display: flex;
-  height: 400px;
-  width: 100%;
+  flex: 1;
   flex-direction: column;
   background-color: #14111a;
 }
 .gw-highlight {
-  overflow-y: scroll;
+  overflow-y: auto;
+  flex: 4 1 0;
 }
 
 .mat-table {
@@ -62,9 +62,6 @@
   background-color: white;
 }
 
-::ng-deep .mat-form-field-empty.mat-form-field-label {
-  color: white;
-}
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-underline::before {
   background-color: white;
 }
@@ -159,4 +156,12 @@ table {
 
 .mat-button-disabled.mat-button-disabled {
   background-color: gray;
+}
+
+.season-highlights {
+  flex: 1;
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

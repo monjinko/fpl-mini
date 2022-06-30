@@ -77,9 +77,11 @@ small {
 }
 
 .dashboard-body {
+  display: flex;
   flex: 1;
 }
 .dashboard-body-intro {
+  flex: 1;
   opacity: 70%;
   font-family: "Quicksand", sans-serif;
   font-size: 1.5em;

@@ -102,6 +102,7 @@
             <th
               mat-header-cell
               [style.color]="'white'"
+              [style.font-size]="'0.8vw'"
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
               *matHeaderCellDef
             >
@@ -110,7 +111,7 @@
             <td
               mat-cell
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
-              [style.font-size]="'0.7em'"
+              [style.font-size]="'0.7vw'"
               [style.color]="'white'"
               *matCellDef="let element"
             >
@@ -122,6 +123,7 @@
             <th
               mat-header-cell
               [style.color]="'white'"
+              [style.font-size]="'0.8vw'"
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
               *matHeaderCellDef
             >
@@ -130,7 +132,7 @@
             <td
               mat-cell
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
-              [style.font-size]="'0.7em'"
+              [style.font-size]="'0.8vw'"
               [style.color]="'white'"
               *matCellDef="let element"
             >
@@ -142,6 +144,7 @@
             <th
               mat-header-cell
               [style.color]="'white'"
+              [style.font-size]="'0.8vw'"
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
               *matHeaderCellDef
             >
@@ -150,7 +153,7 @@
             <td
               mat-cell
               [ngStyle]="{ 'border-bottom': '1px solid white' }"
-              [style.font-size]="'0.7em'"
+              [style.font-size]="'0.8vw'"
               [style.color]="'white'"
               *matCellDef="let element"
             >
@@ -166,7 +169,17 @@
           ></tr>
         </table>
       </div>
-      <season-highlights></season-highlights>
+      <div class="season-highlights">
+        <button
+          (click)="updateRankRange()"
+          mat-raised-button
+          color="primary"
+          type="button"
+          [style.height.px]="35"
+        >
+          View Season Highlights
+        </button>
+      </div>
     </div>
   </div>
 </div>
