@@ -1,5 +1,6 @@
 .content-wrapper {
   display: flex;
+  flex: 1;
   flex-direction: row;
 }
 
@@ -31,7 +32,7 @@
 }
 .gw-highlight {
   overflow-y: auto;
-  flex: 4 1 0;
+  flex: 2 1 0;
 }
 
 .mat-table {
@@ -160,8 +161,28 @@ table {
 
 .season-highlights {
   flex: 1;
-  min-height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.btn {
+  font-size: 0.9vw;
+  background: rgb(64, 57, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(64, 57, 180, 1) 0%,
+    rgba(116, 44, 201, 1) 51%,
+    rgba(102, 51, 92, 1) 100%
+  );
+}
+
+.btn:hover {
+  background: rgb(43, 39, 121);
+  background: linear-gradient(
+    90deg,
+    rgba(43, 39, 121, 1) 0%,
+    rgba(75, 29, 129, 1) 51%,
+    rgba(77, 39, 69, 1) 100%
+  );
 }
