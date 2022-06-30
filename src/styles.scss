@@ -7,16 +7,12 @@ body {
   background-color: black;
   width: 100%;
 }
-  
-  html,
-  body {
-    height: 100%;
-  }
-  
-  app-root {
-    display: block;
-    height: 100%;
-  }
+dashboard-view{
+  height: 100vh;
+  display: flex;
+  flex-flow: column;
+}
+
 
   .mat-slider-thumb {
     background-color: #e35930 !important;

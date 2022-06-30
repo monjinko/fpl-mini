@@ -1,15 +1,18 @@
 .content-wrapper {
-  height: 100%;
   display: flex;
   flex-direction: row;
 }
 
+.canvas {
+  height: 100% !important;
+  width: 100%;
+  display: flex;
+}
+
 .canvas-wrapper {
-  flex-basis: 80%;
+  flex-basis: 75%;
   display: flex;
   box-sizing: border-box;
-  height: 100% !important;
-  width: auto;
   flex-direction: column;
   box-sizing: border-box;
 }
@@ -20,11 +23,26 @@
   width: 80vw;
 }
 
-.gw-highlight {
+.gameweek {
+  display: flex;
+  height: 400px;
+  width: 100%;
+  flex-direction: column;
   background-color: #14111a;
-  flex-basis: 20%;
-  flex-grow: 1;
-  height: 100%;
+}
+.gw-highlight {
+  overflow-y: scroll;
+}
+
+.mat-table {
+  overflow: scroll;
+}
+
+.mat-cell,
+.mat-header-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }
 
 ::ng-deep .mat-form-field-label {
@@ -70,7 +88,6 @@ canvas {
 }
 .rank-range {
   display: flex;
-  height: 100%;
   margin-left: 1em;
   flex-wrap: wrap;
   align-items: center;

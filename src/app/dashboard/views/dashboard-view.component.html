@@ -38,7 +38,11 @@
     <div *ngIf="isLoading">
       <mat-spinner [color]="'accent'" [strokeWidth]="4"></mat-spinner>
     </div>
-    <bar-chart-race *ngIf="data.length > 0; else intro" [data]="data">
+    <bar-chart-race
+      *ngIf="data.length > 0; else intro"
+      [data]="data"
+      [leagueID]="leagueID"
+    >
     </bar-chart-race>
     <ng-template #intro>
       <div class="dashboard-body-intro" *ngIf="!isLoading">

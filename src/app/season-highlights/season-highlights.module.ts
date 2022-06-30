@@ -8,11 +8,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { KnobModule } from 'primeng/knob';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MaterialModule } from 'src/app/material.module';
-import { BarChartRaceComponent } from './bar-chart-race.component';
-import { SeasonHighlightsModule } from '../season-highlights/season-highlights.module';
+import { SeasonHighlightsComponent } from './season-highlights.component';
 
 @NgModule({
-  declarations: [BarChartRaceComponent],
+  declarations: [SeasonHighlightsComponent],
   imports: [
     BrowserAnimationsModule,
     MdbCheckboxModule,
@@ -24,9 +23,8 @@ import { SeasonHighlightsModule } from '../season-highlights/season-highlights.m
     MatNativeDateModule,
     MaterialModule,
     ReactiveFormsModule,
-    SeasonHighlightsModule,
   ],
   providers: [],
-  exports: [BarChartRaceComponent],
+  exports: [SeasonHighlightsComponent],
 })
-export class BarChartRaceModule {}
+export class SeasonHighlightsModule {}

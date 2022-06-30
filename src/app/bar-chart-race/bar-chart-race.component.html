@@ -1,167 +1,172 @@
 <div class="content-wrapper">
-  <div class="canvas-wrapper">
-    <form class="canvas-controls" [formGroup]="formData">
-      <div class="filter-rank">
-        <label>Filter rank range:</label>
-        <div class="rank-range">
-          <mat-form-field
-            appearance="fill"
-            [style.width.px]="100"
-            [style.margin-right]="'0.5em'"
-          >
-            <mat-label>From Rank: </mat-label>
-            <input
-              [style.color]="'white'"
-              matInput
-              #input
-              formControlName="fromRank"
-            />
-          </mat-form-field>
+  <div class="canvas">
+    <div class="canvas-wrapper">
+      <form class="canvas-controls" [formGroup]="formData">
+        <div class="filter-rank">
+          <label>Filter rank range:</label>
+          <div class="rank-range">
+            <mat-form-field
+              appearance="fill"
+              [style.width.px]="100"
+              [style.margin-right]="'0.5em'"
+            >
+              <mat-label>From Rank: </mat-label>
+              <input
+                [style.color]="'white'"
+                matInput
+                #input
+                formControlName="fromRank"
+              />
+            </mat-form-field>
 
-          <mat-form-field appearance="fill" [style.width.px]="100">
-            <mat-label>To Rank: </mat-label>
-            <input
-              [style.color]="'white'"
-              matInput
-              #input
-              formControlName="toRank"
-            />
-          </mat-form-field>
-          <button
-            (click)="updateRankRange()"
-            [disabled]="!formData.valid"
-            mat-raised-button
-            color="primary"
-            type="button"
-            [style.height.px]="35"
-          >
-            Filter
-          </button>
-          <div *ngIf="formData.errors?.['rankError'] && formData.dirty">
-            <small class="text-danger" *ngIf="formData.errors?.['rankError']">
-              First rank greater than second
-            </small>
-          </div>
-          <div *ngIf="formData.get('fromRank')?.hasError && formData.dirty">
-            <small
-              class="text-danger"
-              *ngIf="formData.get('fromRank')?.hasError('min')"
+            <mat-form-field appearance="fill" [style.width.px]="100">
+              <mat-label>To Rank: </mat-label>
+              <input
+                [style.color]="'white'"
+                matInput
+                #input
+                formControlName="toRank"
+              />
+            </mat-form-field>
+            <button
+              (click)="updateRankRange()"
+              [disabled]="!formData.valid"
+              mat-raised-button
+              color="primary"
+              type="button"
+              [style.height.px]="35"
             >
-              Rank less than 1
-            </small>
-          </div>
-          <div *ngIf="formData.get('toRank')?.hasError && formData.dirty">
-            <small
-              class="text-danger"
-              *ngIf="formData.get('toRank')?.hasError('max')"
-            >
-              Rank greater than 10
-            </small>
+              Filter
+            </button>
+            <div *ngIf="formData.errors?.['rankError'] && formData.dirty">
+              <small class="text-danger" *ngIf="formData.errors?.['rankError']">
+                First rank greater than second
+              </small>
+            </div>
+            <div *ngIf="formData.get('fromRank')?.hasError && formData.dirty">
+              <small
+                class="text-danger"
+                *ngIf="formData.get('fromRank')?.hasError('min')"
+              >
+                Rank less than 1
+              </small>
+            </div>
+            <div *ngIf="formData.get('toRank')?.hasError && formData.dirty">
+              <small
+                class="text-danger"
+                *ngIf="formData.get('toRank')?.hasError('max')"
+              >
+                Rank greater than 10
+              </small>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="timelapse">
-        <label>Timelapse</label>
-        <div class="timelapse-controls">
-          <mat-icon
-            [style.opacity]="play_color"
-            [ngClass]="{ disable: play_disable }"
-            type="button"
-            (click)="runTimelapse()"
-            >play_arrow</mat-icon
-          >
-          <mat-icon
-            class="mat-slide-1"
-            [style.opacity]="pause_color"
-            [ngClass]="{ disable: pause_disable }"
-            type="button"
-            (click)="stopTimelapse()"
-            >pause</mat-icon
-          >
-          <mat-slider
-            thumbLabel
-            (input)="onInputChange($event)"
-            [value]="tickValue"
-            step="1"
-            min="0"
-            max="38"
-            aria-label="units"
-          ></mat-slider>
+        <div class="timelapse">
+          <label>Timelapse</label>
+          <div class="timelapse-controls">
+            <mat-icon
+              [style.opacity]="play_color"
+              [ngClass]="{ disable: play_disable }"
+              type="button"
+              (click)="runTimelapse()"
+              >play_arrow</mat-icon
+            >
+            <mat-icon
+              class="mat-slide-1"
+              [style.opacity]="pause_color"
+              [ngClass]="{ disable: pause_disable }"
+              type="button"
+              (click)="stopTimelapse()"
+              >pause</mat-icon
+            >
+            <mat-slider
+              thumbLabel
+              (input)="onInputChange($event)"
+              [value]="tickValue"
+              step="1"
+              min="0"
+              max="38"
+              aria-label="units"
+            ></mat-slider>
+          </div>
         </div>
+      </form>
+      <div class="bar-chart-wrapper">
+        <canvas id="canvas"></canvas>
       </div>
-    </form>
-    <div class="bar-chart-wrapper">
-      <canvas id="canvas"></canvas>
     </div>
-  </div>
-  <div class="gw-highlight">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      <ng-container matColumnDef="Name">
-        <th
-          mat-header-cell
-          [style.color]="'white'"
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          *matHeaderCellDef
-        >
-          Name
-        </th>
-        <td
-          mat-cell
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          [style.font-size]="'0.7em'"
-          [style.color]="'white'"
-          *matCellDef="let element"
-        >
-          {{ element.Name }}
-        </td>
-      </ng-container>
+    <div class="gameweek">
+      <div class="gw-highlight">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+          <ng-container matColumnDef="Name">
+            <th
+              mat-header-cell
+              [style.color]="'white'"
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              *matHeaderCellDef
+            >
+              Name
+            </th>
+            <td
+              mat-cell
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              [style.font-size]="'0.7em'"
+              [style.color]="'white'"
+              *matCellDef="let element"
+            >
+              {{ element.Name }}
+            </td>
+          </ng-container>
 
-      <ng-container matColumnDef="GWPoints">
-        <th
-          mat-header-cell
-          [style.color]="'white'"
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          *matHeaderCellDef
-        >
-          GWPoints
-        </th>
-        <td
-          mat-cell
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          [style.font-size]="'0.7em'"
-          [style.color]="'white'"
-          *matCellDef="let element"
-        >
-          {{ element.GWPoints }}
-        </td>
-      </ng-container>
+          <ng-container matColumnDef="GWPoints">
+            <th
+              mat-header-cell
+              [style.color]="'white'"
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              *matHeaderCellDef
+            >
+              GWPoints
+            </th>
+            <td
+              mat-cell
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              [style.font-size]="'0.7em'"
+              [style.color]="'white'"
+              *matCellDef="let element"
+            >
+              {{ element.GWPoints }}
+            </td>
+          </ng-container>
 
-      <ng-container matColumnDef="ChipUsed">
-        <th
-          mat-header-cell
-          [style.color]="'white'"
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          *matHeaderCellDef
-        >
-          Chip Used
-        </th>
-        <td
-          mat-cell
-          [ngStyle]="{ 'border-bottom': '1px solid white' }"
-          [style.font-size]="'0.7em'"
-          [style.color]="'white'"
-          *matCellDef="let element"
-        >
-          {{ element.ChipUsed }}
-        </td>
-      </ng-container>
+          <ng-container matColumnDef="ChipUsed">
+            <th
+              mat-header-cell
+              [style.color]="'white'"
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              *matHeaderCellDef
+            >
+              Chip Used
+            </th>
+            <td
+              mat-cell
+              [ngStyle]="{ 'border-bottom': '1px solid white' }"
+              [style.font-size]="'0.7em'"
+              [style.color]="'white'"
+              *matCellDef="let element"
+            >
+              {{ element.ChipUsed }}
+            </td>
+          </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr
-        mat-row
-        [ngStyle]="{ border: 'none' }"
-        *matRowDef="let row; columns: displayedColumns"
-      ></tr>
-    </table>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr
+            mat-row
+            [ngStyle]="{ border: 'none' }"
+            *matRowDef="let row; columns: displayedColumns"
+          ></tr>
+        </table>
+      </div>
+      <season-highlights></season-highlights>
+    </div>
   </div>
 </div>

@@ -24,6 +24,8 @@ export class DashboardViewComponent implements OnInit {
     ]),
   });
 
+  leagueID: number;
+
   tID: number | undefined;
 
   constructor() {}
@@ -31,7 +33,7 @@ export class DashboardViewComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    const value = this.formData?.get('teamID')?.value;
-    this.leagueEntered.emit(value);
+    this.leagueID = this.formData?.get('teamID')?.value;
+    this.leagueEntered.emit(this.leagueID);
   }
 }

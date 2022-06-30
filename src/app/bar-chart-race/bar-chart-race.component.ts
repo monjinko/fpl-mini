@@ -15,6 +15,7 @@ import { ManagerModel } from '../dashboard/model/manager.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ThisReceiver } from '@angular/compiler';
 import { rankRangeValidator } from '../shared/customvalidator.directive';
+import { DashboardService } from '../dashboard/services/dashboard.service';
 
 export interface PeriodicElement {
   name: string;
@@ -60,6 +61,9 @@ export class BarChartRaceComponent {
       }
     }
   }
+
+  @Input() leagueID: number;
+
   mySubscription: Subscription;
 
   displayedColumns: string[] = ['Name', 'GWPoints', 'ChipUsed'];
@@ -95,7 +99,7 @@ export class BarChartRaceComponent {
       ]),
       toRank: new FormControl('', [
         Validators.required,
-        Validators.max(10),
+        Validators.max(12),
         Validators.pattern(this.numberRegEx),
       ]),
     },
@@ -114,7 +118,7 @@ export class BarChartRaceComponent {
 
   tickValue: number;
 
-  constructor() {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {}
 
@@ -162,10 +166,6 @@ export class BarChartRaceComponent {
       manager.ManagerGraphColor = defaultColorArray[index];
     });
 
-    if (secondIndex > this.currentRankRange) {
-      this.currentRankRange = secondIndex;
-    }
-
     this.splicedData.sort((a, b) => a.LeagueRank - b.LeagueRank);
 
     this.maxPoints =
@@ -177,9 +177,9 @@ export class BarChartRaceComponent {
     let firstIndex = parseInt(this.formData.get('fromRank')?.value);
     let secondIndex = parseInt(this.formData.get('toRank')?.value);
 
-    if (firstIndex > secondIndex) {
-      this.formData.valid == false;
-      this.formData.updateValueAndValidity();
+    if (secondIndex > this.currentRankRange) {
+      this.currentRankRange = secondIndex;
+      this.dashboardService.getLeagueData(this.leagueID, this.currentRankRange);
     }
 
     this.setRankRange(firstIndex - 1, secondIndex);

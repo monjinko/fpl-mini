@@ -1,13 +1,7 @@
 .dashboard-wrapper {
-  height: 100vh;
+  flex: 1;
   display: flex;
-  flex-flow: column;
-  height: 100%;
-}
-
-.dashboard-body {
-  flex: 1 1 auto;
-  height: auto;
+  flex-direction: column;
 }
 
 mat-toolbar {
@@ -51,10 +45,6 @@ mat-toolbar .header-title {
   flex-wrap: wrap;
 }
 
-dashboard-view {
-  width: 100%;
-}
-
 mat-spinner {
   position: fixed;
   top: 50%;
@@ -86,6 +76,9 @@ small {
   font-size: 0.7em;
 }
 
+.dashboard-body {
+  flex: 1;
+}
 .dashboard-body-intro {
   opacity: 70%;
   font-family: "Quicksand", sans-serif;

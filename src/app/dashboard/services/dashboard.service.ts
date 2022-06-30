@@ -52,6 +52,59 @@ export class DashboardService implements OnDestroy {
       .pipe(
         switchMap((data: any): Observable<Array<ManagerModel>> => {
           const mngrArray = new Array<ManagerModel>();
+          let index = 0;
+          while (index < rankRange) {
+            const player = data.standings.results[index];
+            let manager = new ManagerModel(player);
+            mngrArray.push(manager);
+            let allGWurl = `${this.gwAPIURL}${player.entry}`;
+            gwEndpoints.push(this.http?.get(allGWurl));
+            index++;
+          }
+          this.leagueManagers = mngrArray;
+          return forkJoin(gwEndpoints);
+        }),
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(
+        (data: any) => {
+          for (const [i, mng] of data.entries()) {
+            let mngGW = new Array<GameWeekDataModel>();
+            for (const gw of mng.current) {
+              const gwData = new GameWeekDataModel(gw);
+              mngGW.push(gwData);
+            }
+            this.leagueManagers[i].GWData.push(...mngGW);
+
+            let mngChip = new Array<ChipsModel>();
+            for (const chips of mng.chips) {
+              const chipsData = new ChipsModel(chips);
+              mngChip.push(chipsData);
+            }
+            this.leagueManagers[i].Chips.push(...mngChip);
+          }
+          this._isLoading.next(false);
+          this._data.next(this.leagueManagers);
+        },
+        (error) => {
+          this._isLoading.next(false);
+          console.log(error);
+          if (error.status == 404) {
+            console.log('League Not Found');
+          }
+        }
+      );
+  }
+
+  updateLeagueData(id: number, rankRange: number) {
+    const url = `${this.leagueAPIURL}${id}`;
+    const gwEndpoints = new Array<Observable<any>>();
+    this._isLoading.next(true);
+    this.http
+      ?.get(url)
+      .pipe(
+        switchMap((data: any): Observable<Array<ManagerModel>> => {
+          const mngrArray = new Array<ManagerModel>();
 
           let index = 0;
           while (index < rankRange) {
@@ -63,9 +116,7 @@ export class DashboardService implements OnDestroy {
             gwEndpoints.push(this.http?.get(allGWurl));
             index++;
           }
-
           this.leagueManagers = mngrArray;
-
           return forkJoin(gwEndpoints);
         }),
         takeUntil(this.unsubscribe)
