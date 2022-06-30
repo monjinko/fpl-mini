@@ -167,7 +167,6 @@ table {
 }
 
 .btn {
-  font-size: 0.9vw;
   background: rgb(64, 57, 180);
   background: linear-gradient(
     90deg,
@@ -175,6 +174,12 @@ table {
     rgba(116, 44, 201, 1) 51%,
     rgba(102, 51, 92, 1) 100%
   );
+}
+
+.button-title {
+  font-size: 0.8vw;
+  padding-top: 2em;
+  padding-bottom: 2em;
 }
 
 .btn:hover {
