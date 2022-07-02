@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ManagerModel } from '../model/manager.model';
+import { ManagerModel } from '../../shared/model/manager.model';
 import { DashboardService } from '../services/dashboard.service';
 
 @Component({

@@ -11,7 +11,7 @@ import { DashboardComponent } from './container/dashboard.component';
 import { MaterialModule } from 'src/app/material.module';
 import { DashboardViewComponent } from './views/dashboard-view.component';
 import { DashboardService } from './services/dashboard.service';
-import { ManagerModel } from './model/manager.model';
+import { ManagerModel } from '../shared/model/manager.model';
 import { BarChartRaceModule } from '../bar-chart-race/bar-chart-race.module';
 
 @NgModule({

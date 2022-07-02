@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -10,12 +10,13 @@ import {
 import Chart, { ChartConfiguration, ChartType } from 'chart.js/auto';
 import { SubTitle } from 'chart.js';
 import { distinctUntilChanged, first, interval, Subscription } from 'rxjs';
-import { GameWeekGraphModel } from '../dashboard/model/gwgraph.model';
-import { ManagerModel } from '../dashboard/model/manager.model';
+import { GameWeekGraphModel } from '../shared/model/gwgraph.model';
+import { ManagerModel } from '../shared/model/manager.model';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { ThisReceiver } from '@angular/compiler';
 import { rankRangeValidator } from '../shared/customvalidator.directive';
 import { DashboardService } from '../dashboard/services/dashboard.service';
+import { SeasonHighlightsComponent } from '../season-highlights/season-highlights.component';
 
 export interface PeriodicElement {
   name: string;
@@ -63,6 +64,9 @@ export class BarChartRaceComponent {
   }
 
   @Input() leagueID: number;
+
+  @ViewChild('seasonHL')
+  private seasonHighlightsComponent: SeasonHighlightsComponent;
 
   mySubscription: Subscription;
 
@@ -360,7 +364,13 @@ export class BarChartRaceComponent {
   }
 
   displaySeasonHighlights() {
+    this.seasonHighlightsComponent.getSeasonHighlightData();
     this.hideChart = true;
     this.hideSeasonHighlights = false;
+  }
+
+  displayBarChart() {
+    this.hideChart = false;
+    this.hideSeasonHighlights = true;
   }
 }

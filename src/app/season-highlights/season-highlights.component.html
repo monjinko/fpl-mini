@@ -1,16 +1,70 @@
 <div class="content-wrapper">
   <div class="highlights-text">Season Highlights</div>
   <div class="highlight-cards">
-    <div class="best-chip">cc</div>
-    <div class="transfer-avg">dd</div>
-    <div class="transfers-made">d</div>
-    <div class="transfer-effeciency">sdfds</div>
-    <div class="transfers-made">ddfda</div>
-    <div class="transfer-effeciency">sf</div>
+    <div class="best-chip">
+      <div class="tile-header">
+        <label>Best Chip</label>
+        <img src="assets/svg/chip.svg" />
+      </div>
+      <label></label>
+    </div>
+    <div class="highest-point">
+      <div class="tile-header">
+        <label>Season's Best</label>
+        <img src="assets/svg/1st.svg" />
+      </div>
+      <div class="seasonBW">
+        <div class="BWscore">{{ seasonBW.SeasonBest }}</div>
+        <div class="BWtext">
+          <label [style.color]="'#ffd400'" [style.font-weight]="'bold'">{{
+            seasonBW.SeasonBestName
+          }}</label>
+          has the highest point of the season with
+          {{ seasonBW.SeasonBest }} points on Game Week
+          {{ seasonBW.SeasonBestGW }}.
+        </div>
+      </div>
+    </div>
+    <div class="highest-point">
+      <div class="tile-header">
+        <label>Season's Worst</label>
+        <img src="assets/svg/cry.svg" />
+      </div>
+      <div class="seasonBW">
+        <div class="BWscore">{{ seasonBW.SeasonWorst }}</div>
+        <div class="BWtext">
+          <label [style.color]="'#ffd400'" [style.font-weight]="'bold'">{{
+            seasonBW.SeasonWorstName
+          }}</label>
+          has the lowest point of the season with
+          {{ seasonBW.SeasonWorst }} points on Game Week
+          {{ seasonBW.SeasonWorstGW }}.
+        </div>
+      </div>
+    </div>
+    <div class="transfer-avg">
+      <div class="tile-header">
+        <label>Best Transfer Average</label>
+        <img src="assets/svg/avg.svg" />
+      </div>
+    </div>
+    <div class="transfers-most">
+      <div class="tile-header">
+        <label>Most Transfers</label>
+        <img src="assets/svg/most-tran.svg" />
+      </div>
+    </div>
+    <div class="transfer-least">
+      <div class="tile-header">
+        <label>Least Transfers</label>
+        <img src="assets/svg/tran.svg" />
+      </div>
+    </div>
   </div>
   <div class="season-highlights-button">
     <button
       class="btn btn-outline-primary col-4"
+      (click)="emitDisplayBarChart()"
       mat-raised-button
       color="primary"
       type="button"

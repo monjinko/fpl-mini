@@ -8,9 +8,9 @@ import {
   switchMap,
   takeUntil,
 } from 'rxjs';
-import { ChipsModel } from '../model/chips.model';
-import { GameWeekDataModel } from '../model/gameweekdata.model';
-import { ManagerModel } from '../model/manager.model';
+import { ChipsModel } from '../../shared/model/chips.model';
+import { GameWeekDataModel } from '../../shared/model/gameweekdata.model';
+import { ManagerModel } from '../../shared/model/manager.model';
 
 @Injectable()
 export class DashboardService implements OnDestroy {

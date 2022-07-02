@@ -4,21 +4,43 @@
 }
 .highlights-text {
   text-align: center;
+  font-size: 2.5em;
+  font-family: "Bebas Neue";
 }
 
 .highlight-cards {
+  font-family: "Quicksand", sans-serif;
   justify-content: center;
-  padding: 5em;
+  padding: 1em;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
-  grid-gap: 4em;
+  grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
+  grid-gap: 3em;
   align-items: stretch;
+  margin: 1em;
 }
 
 .highlight-cards > div {
-  border: 1px solid #ccc;
+  padding: 0.8em;
+  font-size: 1.3em;
+  background: rgb(39, 121, 112);
+  background: linear-gradient(
+    45deg,
+    rgb(18 141 135) 0%,
+    rgb(18 96 89 / 98%) 100%
+  );
+
+  border-radius: 0.5em;
   min-height: 10em;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+}
+.tile-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.highlight-cards > div > .tile-header > img {
+  height: 2em;
+  width: auto;
 }
 .season-highlights-button {
   text-align: center;
@@ -42,4 +64,19 @@
     rgba(75, 29, 129, 1) 51%,
     rgba(77, 39, 69, 1) 100%
   );
+}
+
+.seasonBW {
+  display: flex;
+  flex-direction: column;
+}
+
+.BWscore {
+  text-align: center;
+  font-size: 3.5em;
+  margin-bottom: 0.5em;
+}
+
+.BWtext {
+  font-size: 0.8em;
 }
