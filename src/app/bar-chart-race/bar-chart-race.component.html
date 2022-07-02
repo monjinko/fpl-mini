@@ -1,5 +1,5 @@
 <div class="content-wrapper">
-  <div class="canvas">
+  <div class="canvas" [hidden]="hideChart">
     <div class="canvas-wrapper">
       <form class="canvas-controls" [formGroup]="formData">
         <div class="filter-rank">
@@ -169,10 +169,10 @@
           ></tr>
         </table>
       </div>
-      <div class="season-highlights">
+      <div class="season-highlights-button">
         <button
           class="btn btn-outline-primary col-4"
-          (click)="updateRankRange()"
+          (click)="displaySeasonHighlights()"
           mat-raised-button
           color="primary"
           type="button"
@@ -183,4 +183,6 @@
       </div>
     </div>
   </div>
+
+  <season-highlights [hidden]="hideSeasonHighlights"></season-highlights>
 </div>

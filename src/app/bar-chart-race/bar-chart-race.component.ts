@@ -44,6 +44,8 @@ const defaultColorArray = [
 export class BarChartRaceComponent {
   @Input() set data(managerData: Array<ManagerModel>) {
     if (managerData.length > 0) {
+      this.hideChart = false;
+      this.hideSeasonHighlights = true;
       this._data = managerData;
       let maxLength;
       if (this._data.length > 10) {
@@ -56,8 +58,6 @@ export class BarChartRaceComponent {
         this.updateGW(1);
         this.tickValue = 1;
         this.event = 1;
-      } else {
-        this.createBarChart();
       }
     }
   }
@@ -87,6 +87,10 @@ export class BarChartRaceComponent {
   maxPoints: number;
 
   currentRankRange: number = 10;
+
+  hideChart: boolean = false;
+
+  hideSeasonHighlights: boolean = true;
 
   numberRegEx = /\-?\d*\.?\d{1,2}/;
 
@@ -120,7 +124,9 @@ export class BarChartRaceComponent {
 
   constructor(private dashboardService: DashboardService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.createBarChart();
+  }
 
   updateGW(event: number): void {
     let selectedGW = this.createSelectedGWDataArray(event);
@@ -351,5 +357,10 @@ export class BarChartRaceComponent {
     this.updateGW(event.value);
     this.tickValue = event.value;
     this.event = event.value;
+  }
+
+  displaySeasonHighlights() {
+    this.hideChart = true;
+    this.hideSeasonHighlights = false;
   }
 }

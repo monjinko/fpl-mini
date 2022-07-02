@@ -1,0 +1,45 @@
+.content-wrapper {
+  color: white;
+  margin: 3em;
+}
+.highlights-text {
+  text-align: center;
+}
+
+.highlight-cards {
+  justify-content: center;
+  padding: 5em;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
+  grid-gap: 4em;
+  align-items: stretch;
+}
+
+.highlight-cards > div {
+  border: 1px solid #ccc;
+  min-height: 10em;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+}
+.season-highlights-button {
+  text-align: center;
+}
+
+.btn {
+  background: rgb(64, 57, 180);
+  background: linear-gradient(
+    90deg,
+    rgba(64, 57, 180, 1) 0%,
+    rgba(116, 44, 201, 1) 51%,
+    rgba(102, 51, 92, 1) 100%
+  );
+}
+
+.btn:hover {
+  background: rgb(43, 39, 121);
+  background: linear-gradient(
+    90deg,
+    rgba(43, 39, 121, 1) 0%,
+    rgba(75, 29, 129, 1) 51%,
+    rgba(77, 39, 69, 1) 100%
+  );
+}

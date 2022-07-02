@@ -159,7 +159,7 @@ table {
   background-color: gray;
 }
 
-.season-highlights {
+.season-highlights-button {
   flex: 1;
   display: flex;
   align-items: center;
@@ -190,4 +190,14 @@ table {
     rgba(75, 29, 129, 1) 51%,
     rgba(77, 39, 69, 1) 100%
   );
+}
+
+[hidden] {
+  display: none !important;
+}
+
+season-highlights {
+  background-color: black;
+
+  flex: 1;
 }
