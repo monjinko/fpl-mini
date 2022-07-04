@@ -80,3 +80,13 @@
 .BWtext {
   font-size: 0.8em;
 }
+
+.MLtrans {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 1em;
+}
+
+.MLtext {
+  text-align: center;
+}

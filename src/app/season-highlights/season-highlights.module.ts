@@ -9,10 +9,12 @@ import { KnobModule } from 'primeng/knob';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MaterialModule } from 'src/app/material.module';
 import { SeasonHighlightsComponent } from './season-highlights.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [SeasonHighlightsComponent],
   imports: [
+    SharedModule,
     BrowserAnimationsModule,
     MdbCheckboxModule,
     BrowserModule,

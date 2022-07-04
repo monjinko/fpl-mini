@@ -1,13 +1,6 @@
 <div class="content-wrapper">
   <div class="highlights-text">Season Highlights</div>
   <div class="highlight-cards">
-    <div class="best-chip">
-      <div class="tile-header">
-        <label>Best Chip</label>
-        <img src="assets/svg/chip.svg" />
-      </div>
-      <label></label>
-    </div>
     <div class="highest-point">
       <div class="tile-header">
         <label>Season's Best</label>
@@ -42,16 +35,27 @@
         </div>
       </div>
     </div>
-    <div class="transfer-avg">
+
+    <!--<div class="transfer-avg">
       <div class="tile-header">
         <label>Best Transfer Average</label>
         <img src="assets/svg/avg.svg" />
       </div>
-    </div>
+    </div>-->
     <div class="transfers-most">
       <div class="tile-header">
         <label>Most Transfers</label>
         <img src="assets/svg/most-tran.svg" />
+      </div>
+      <div class="seasonBW">
+        <div class="MLtrans">{{ seasonBW.MostTransfer }} Transfers</div>
+        <div class="MLtext">
+          <label [style.color]="'#ffd400'" [style.font-weight]="'bold'">{{
+            seasonBW.MostTransferName
+          }}</label>
+          has the most transfers with
+          {{ seasonBW.MostTransfer }} transfers.
+        </div>
       </div>
     </div>
     <div class="transfer-least">
@@ -59,6 +63,40 @@
         <label>Least Transfers</label>
         <img src="assets/svg/tran.svg" />
       </div>
+      <div class="seasonBW">
+        <div class="MLtrans">{{ seasonBW.LeastTransfer }} Transfers</div>
+        <div class="MLtext">
+          <label [style.color]="'#ffd400'" [style.font-weight]="'bold'">{{
+            seasonBW.LeastTransferName
+          }}</label>
+          has the least transfers with
+          {{ seasonBW.LeastTransfer }} transfers.
+        </div>
+      </div>
+    </div>
+    <div class="transfers-most-GW">
+      <div class="tile-header">
+        <label>Most Transfers in GW</label>
+        <img src="assets/svg/most-tran-week.svg" />
+      </div>
+      <div class="seasonBW">
+        <div class="MLtrans">{{ seasonBW.MostTransferWeek }} Transfers</div>
+        <div class="MLtext">
+          <label [style.color]="'#ffd400'" [style.font-weight]="'bold'">{{
+            seasonBW.MostTransferWeekName
+          }}</label>
+          has the most transfers on a single Game Week with
+          {{ seasonBW.MostTransferWeek }} transfers on GW
+          {{ seasonBW.MostTransferWeekGW }}.
+        </div>
+      </div>
+    </div>
+    <div class="best-chip">
+      <div class="tile-header">
+        <label>Best Chip</label>
+        <img src="assets/svg/chip.svg" />
+      </div>
+      <label></label>
     </div>
   </div>
   <div class="season-highlights-button">

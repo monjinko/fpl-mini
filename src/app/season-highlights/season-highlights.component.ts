@@ -1,7 +1,9 @@
 import { Component, Input, OnInit, Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { least } from 'd3';
 import { ManagerModel } from '../shared/model/manager.model';
 import { SeasonBWModel } from '../shared/model/seasonBW.model';
+import { BoldPipe } from '../shared/pipes/interpolation-bold.pipe';
 
 @Component({
   selector: 'season-highlights',
@@ -23,11 +25,22 @@ export class SeasonHighlightsComponent implements OnInit {
 
   getBestChip() {
     let seasonBWData = new SeasonBWModel();
-    seasonBWData.SeasonBest = -1;
-    seasonBWData.SeasonWorst = 1000;
+    seasonBWData.MostTransfer =
+      seasonBWData.SeasonBest =
+      seasonBWData.MostTransferWeek =
+        -1;
+    seasonBWData.LeastTransfer = seasonBWData.SeasonWorst = 1000;
 
     this.data.forEach((manager) => {
+      let leastTransfer = 0;
+      let mostTransfer = 0;
+      let mostTransferWeek = 0;
+
       for (const gw of manager.GWData) {
+        leastTransfer += gw.EventTransfers;
+        mostTransfer += gw.EventTransfers;
+        mostTransferWeek = gw.EventTransfers;
+
         if (gw.GWPoints > seasonBWData.SeasonBest) {
           seasonBWData.SeasonBest = gw.GWPoints;
           seasonBWData.SeasonBestName = manager.Name;
@@ -38,8 +51,22 @@ export class SeasonHighlightsComponent implements OnInit {
           seasonBWData.SeasonWorstName = manager.Name;
           seasonBWData.SeasonWorstGW = gw.Event;
         }
+        if (seasonBWData.MostTransferWeek < mostTransferWeek) {
+          seasonBWData.MostTransferWeek = mostTransferWeek;
+          seasonBWData.MostTransferWeekName = manager.Name;
+          seasonBWData.MostTransferWeekGW = gw.Event;
+        }
+      }
+      if (seasonBWData.MostTransfer < mostTransfer) {
+        seasonBWData.MostTransfer = mostTransfer;
+        seasonBWData.MostTransferName = manager.Name;
+      }
+      if (seasonBWData.LeastTransfer > leastTransfer) {
+        seasonBWData.LeastTransfer = leastTransfer;
+        seasonBWData.LeastTransferName = manager.Name;
       }
     });
+
     this.seasonBW = seasonBWData;
   }
 
