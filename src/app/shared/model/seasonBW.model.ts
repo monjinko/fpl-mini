@@ -24,4 +24,12 @@ export class SeasonBWModel {
   MostTransferWeekName: string;
 
   MostTransferWeekGW: number;
+
+  MostExpensiveTeam: string;
+
+  MostExpensiveTeamValue: number;
+
+  CheapestTeam: string;
+
+  CheapestTeamValue: number;
 }

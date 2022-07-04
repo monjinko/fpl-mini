@@ -26,10 +26,14 @@ export class SeasonHighlightsComponent implements OnInit {
   getBestChip() {
     let seasonBWData = new SeasonBWModel();
     seasonBWData.MostTransfer =
+      seasonBWData.MostExpensiveTeamValue =
       seasonBWData.SeasonBest =
       seasonBWData.MostTransferWeek =
         -1;
-    seasonBWData.LeastTransfer = seasonBWData.SeasonWorst = 1000;
+    seasonBWData.LeastTransfer =
+      seasonBWData.SeasonWorst =
+      seasonBWData.CheapestTeamValue =
+        1000;
 
     this.data.forEach((manager) => {
       let leastTransfer = 0;
@@ -57,6 +61,23 @@ export class SeasonHighlightsComponent implements OnInit {
           seasonBWData.MostTransferWeekGW = gw.Event;
         }
       }
+      if (
+        seasonBWData.MostExpensiveTeamValue <
+        manager.GWData[manager.GWData.length - 1].TeamValue
+      ) {
+        seasonBWData.MostExpensiveTeamValue =
+          manager.GWData[manager.GWData.length - 1].TeamValue;
+        seasonBWData.MostExpensiveTeam = manager.Name;
+      }
+      if (
+        seasonBWData.CheapestTeamValue >
+        manager.GWData[manager.GWData.length - 1].TeamValue
+      ) {
+        seasonBWData.CheapestTeamValue =
+          manager.GWData[manager.GWData.length - 1].TeamValue;
+        seasonBWData.CheapestTeam = manager.Name;
+      }
+
       if (seasonBWData.MostTransfer < mostTransfer) {
         seasonBWData.MostTransfer = mostTransfer;
         seasonBWData.MostTransferName = manager.Name;

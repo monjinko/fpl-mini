@@ -13,7 +13,7 @@
   justify-content: center;
   padding: 1em;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(27em, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
   grid-gap: 3em;
   align-items: stretch;
   margin: 1em;
